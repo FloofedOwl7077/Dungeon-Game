@@ -37,7 +37,7 @@ def main() -> None:
 
     engine = Engine(entities=entities, event_handler=event_handler, game_map=game_map, player=player)
 
-    with tcod.context.new_terminal(
+    with tcod.context.new(
         screen_width,
         screen_height,
         tileset=tileset,
