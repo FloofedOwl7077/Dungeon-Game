@@ -38,8 +38,8 @@ def main() -> None:
     engine = Engine(entities=entities, event_handler=event_handler, game_map=game_map, player=player)
 
     with tcod.context.new(
-        width=screen_width,
-        height=screen_height,
+        width=screen_width*10,
+        height=screen_height*10,
         tileset=tileset,
         title="Dungeon Crawler",
         vsync=True,
