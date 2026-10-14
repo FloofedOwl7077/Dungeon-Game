@@ -1,4 +1,4 @@
-from typing import Set, Iterable, Any
+from typing import Iterable, Any
 
 from tcod.context import Context
 from tcod.console import Console
@@ -9,8 +9,7 @@ from game_map import GameMap
 from input_handlers import ActionHandler
 
 class Engine:
-    def __init__(self, entities: set[Entity], event_handler: ActionHandler, game_map: GameMap, player: Entity):
-        self.entities = entities
+    def __init__(self, event_handler: ActionHandler, game_map: GameMap, player: Entity):
         self.event_handler = event_handler
         self.game_map = game_map
         self.player = player
@@ -40,11 +39,6 @@ class Engine:
     def render(self, console: Console, context: Context) -> None:
         self.game_map.render(console)
         
-        for entity in self.entities:
-            # Only print entities that are in the FOV
-            if self.game_map.visible[entity.x, entity.y]:
-                console.print(entity.x, entity.y, entity.char, fg=entity.color)
-
         context.present(console)
 
         console.clear()
