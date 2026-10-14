@@ -5,10 +5,10 @@ from tcod.console import Console
 
 from entity import Entity
 from game_map import GameMap
-from input_handlers import EventHandler
+from input_handlers import ActionHandler
 
 class Engine:
-    def __init__(self, entities: set[Entity], event_handler: EventHandler, game_map: GameMap, player: Entity):
+    def __init__(self, entities: set[Entity], event_handler: ActionHandler, game_map: GameMap, player: Entity):
         self.entities = entities
         self.event_handler = event_handler
         self.game_map = game_map
@@ -16,7 +16,7 @@ class Engine:
 
     def handle_events(self, events: Iterable[Any]) -> None:
         for event in events:
-            action = self.event_handler.dispatch(event)
+            action = self.event_handler.handle_event(event)
 
             if action is None:
                 continue
