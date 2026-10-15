@@ -6,7 +6,7 @@ from typing import Tuple, TypeVar, TYPE_CHECKING
 if TYPE_CHECKING:
     from game_map import GameMap
 
-T = TypeVar("T", bound=Entity)
+T = TypeVar("T", bound="Entity")
 
 class Entity:
     """
