@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from tcod import console
 
 def render_bar(
-        console:Console, current_value: int, maximum_value: int, total_width: int
+        console:console, current_value: int, maximum_value: int, total_width: int
 ) -> None:
     bar_width = int(float(current_value) / maximum_value * total_width)
 
