@@ -2,7 +2,7 @@ from typing import Optional, Protocol
 
 import tcod.event
 
-from actions import Action, EscapeAction, MovementAction
+from actions import Action, BumpAction, EscapeAction
 
 class ActionHandler(Protocol):
     def handle_event(self, event: tcod.event.Event) -> Optional[Action]: ...
@@ -15,13 +15,13 @@ class EventHandler:
                 raise SystemExit()
             
             case tcod.event.KeyDown(sym=tcod.event.KeySym.UP):
-                return MovementAction(dx=0, dy=-1)
+                return BumpAction(dx=0, dy=-1)
             case tcod.event.KeyDown(sym=tcod.event.KeySym.DOWN):
-                return MovementAction(dx=0, dy=1)
+                return BumpAction(dx=0, dy=1)
             case tcod.event.KeyDown(sym=tcod.event.KeySym.LEFT):
-                return MovementAction(dx=-1, dy=0)
+                return BumpAction(dx=-1, dy=0)
             case tcod.event.KeyDown(sym=tcod.event.KeySym.RIGHT):
-                return MovementAction(dx=1, dy=0)
+                return BumpAction(dx=1, dy=0)
             
             case tcod.event.KeyDown(sym=tcod.event.KeySym.ESCAPE):
                 return EscapeAction()
