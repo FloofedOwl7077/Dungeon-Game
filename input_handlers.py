@@ -79,10 +79,10 @@ class MainGameEventHandler(EventHandler):
             dx, dy = MOVE_KEYS[key]
             action = BumpAction(player, dx, dy)
         elif key in WAIT_KEYS:
-            action = WaitAction()
+            action = WaitAction(player)
         
         elif key == tcod.event.KeySym.ESCAPE:
-            action = EscapeAction()
+            action = EscapeAction(player)
 
         # No valid key was pressed
         return action
