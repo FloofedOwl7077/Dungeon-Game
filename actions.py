@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 class Action:
     def __init__(self, entity: Entity):
         super().__init__()
-        self.entity = self.entity
+        self.entity = entity
 
     @property
     def engine(self) -> Engine:
