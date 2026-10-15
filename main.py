@@ -40,7 +40,7 @@ def main() -> None:
         max_monsters_per_room=max_monsters_per_room,
         engine=engine,
     )
-    engine.update_fov
+    engine.update_fov()
 
     with tcod.context.new(
         width=screen_width*10,
