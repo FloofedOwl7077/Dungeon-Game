@@ -9,6 +9,8 @@ from actions import Action, BumpAction, EscapeAction, WaitAction
 if TYPE_CHECKING:
     from engine import Engine
 
+#region (click to expand) Keys
+
 MOVE_KEYS = {
     # Arrow keys.
     tcod.event.KeySym.UP: (0, -1),
@@ -44,6 +46,7 @@ WAIT_KEYS = {
     tcod.event.KeySym.KP_5,
     tcod.event.KeySym.CLEAR,
 }
+#endregion
 
 class EventHandler(tcod.event.EventDispatch[Action]):
     def __init__(self, engine: Engine):
