@@ -100,9 +100,9 @@ class GameOverEventHandler(EventHandler):
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[Action]:
         action: Optional[Action] = None
 
-        key = event.KeySym
+        key = event.sym
 
-        if key == tcod.event.ESCAPE:
+        if key == tcod.event.KeySym.ESCAPE:
             action = EscapeAction(self.engine.player)
 
         # No valid key was pressed
