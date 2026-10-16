@@ -8,7 +8,8 @@ from actions import (
     Action, 
     BumpAction, 
     EscapeAction, 
-    WaitAction
+    PickupAction,
+    WaitAction,
 )
 import color
 import exceptions
@@ -116,6 +117,10 @@ class MainGameEventHandler(EventHandler):
             action = EscapeAction(player)
         elif key == tcod.event.KeySym.V:
             self.engine.event_handler = HistoryViewer(self.engine)
+
+        elif key == tcod.event.KeySym.G:
+            action = PickupAction(player)
+            
         # No valid key was pressed
         return action
 
