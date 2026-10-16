@@ -8,7 +8,6 @@ import actions
 from actions import (
     Action, 
     BumpAction, 
-    EscapeAction, 
     PickupAction,
     WaitAction,
 )
@@ -235,7 +234,7 @@ class MainGameEventHandler(EventHandler):
             action = WaitAction(player)
         
         elif key == tcod.event.KeySym.ESCAPE:
-            action = EscapeAction(player)
+            raise SystemExit()
         elif key == tcod.event.KeySym.V:
             self.engine.event_handler = HistoryViewer(self.engine)
 
