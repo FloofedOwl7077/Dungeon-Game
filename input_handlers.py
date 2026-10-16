@@ -141,7 +141,7 @@ class HistoryViewer(EventHandler):
     def on_render(self, console):
         super().on_render(console) # Draw the main state as the background.
 
-        log_console = tcod.console(console.width - 6, console.height - 6)
+        log_console = tcod.console.Console(console.width - 6, console.height - 6)
 
         # Draw a frame with a custom banner title.
         log_console.draw_frame(0, 0, log_console.width, log_console.height)
