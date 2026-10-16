@@ -43,6 +43,10 @@ class Entity:
             self.parent = parent
             parent.entities.add(self)
 
+    @property
+    def gamemap(self) -> GameMap:
+        return self.parent.gamemap
+
     def spawn(self: T, gamemap:GameMap, x: int, y:int) -> T:
         # Spawn a copy of this instance at the given location.
         clone = copy.deepcopy(self)
@@ -60,7 +64,7 @@ class Entity:
                 if hasattr(self, "parent"): # Possibly uninitialized.
                     if self.parent is self.gamemap:
                         self.gamemap.entities.remove(self)
-                self.gamemap = gamemap
+                self.parent = gamemap
                 gamemap.entities.add(self)
 
     def move(self, dx: int, dy = int) -> None:
@@ -120,5 +124,5 @@ class Item(Entity):
             render_order=RenderOrder.ITEM,
         )
 
-        self.consumable = self.consumable
+        self.consumable = consumable
         self.consumable.parent = self
