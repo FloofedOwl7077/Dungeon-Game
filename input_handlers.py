@@ -105,7 +105,7 @@ class AskUserEventHandler(EventHandler):
 
     def handle_action(self, action: Optional[Action]) -> bool:
         # Return to the main event handler when a valid action was performed.
-        if super().handler_action(action):
+        if super().handle_action(action):
             self.engine.event_handler = MainGameEventHandler(self.engine)
             return True
         return False
@@ -183,7 +183,7 @@ class InventoryEventHandler(AskUserEventHandler):
         else:
             console.print(x + 1, y + 1, "(Empty)")
 
-    def ev_keyown(self, event: tcod.event.KeyDown) -> Optional[Action]:
+    def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[Action]:
         player = self.engine.player
         key = event.sym
         index = key - tcod.event.KeySym.A
