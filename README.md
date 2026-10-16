@@ -28,10 +28,19 @@ Click the Run Python File arrow in the top right corner of the center panel.
 
 ### Other:
 View History: V <br>
+#### Navigate History:
+<ul>
+<li> Up 1: Up Arrow </li>
+<li> Down 1: Down Arrow </li>
+<li> Up 10: Page Up </li>
+<li> Down 10: Page Down </li>
+<li> Jump to Top: Home </li>
+<li> Jump to Bottom: End </li>
+</ul>
+
 Pick Up Item: G <br>
 Open Inventory: I <br>
 Open Drop Inventory: D <br>
-
-Select Item in Inventory: A-Z (Marked next to the item)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Item in Either Inventory: A-Z (Marked next to the item)
 
 Quit Game: Escape
