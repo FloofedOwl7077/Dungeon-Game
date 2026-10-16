@@ -27,7 +27,7 @@ troll = Actor(
 )
 
 health_potion = Item(
-    char="!"
+    char="!",
     color=(127, 0, 255),
     name="Health Potion",
     consumeable=HealingConsumable(amount=4),
