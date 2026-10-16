@@ -30,6 +30,6 @@ health_potion = Item(
     char="!",
     color=(127, 0, 255),
     name="Health Potion",
-    consumeable=HealingConsumable(amount=4),
+    consumable=HealingConsumable(amount=4),
 )
 
