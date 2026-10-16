@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from typing import Optional, TYPE_CHECKING
 
-import actions
-import color
-import components.inventory
-from components.base_component import BaseComponent
-from exceptions import Impossible
+import game.actions as actions
+import game.color as color
+import game.components.inventory
+from game.components.base_component import BaseComponent
+from game.exceptions import Impossible
 
 if TYPE_CHECKING:
-    from entity import Actor, Item
+    from game.entity import Actor, Item
 
 class Consumable(BaseComponent):
     parent: Item
@@ -29,7 +29,7 @@ class Consumable(BaseComponent):
         # Remove the consumed item from its containing inventory.
         entity = self.parent
         inventory = entity.parent
-        if isinstance(inventory, components.inventory.Inventory):
+        if isinstance(inventory, game.components.inventory.Inventory):
             inventory.items.remove(entity)
 
 class HealingConsumable(Consumable):

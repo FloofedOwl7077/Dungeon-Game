@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-import color
-import exceptions
+import game.color as color
+import game.exceptions as exceptions
 
 from typing import Optional, Tuple, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from engine import Engine
-    from entity import Actor, Entity, Item
+    from game.engine import Engine
+    from game.entity import Actor, Entity, Item
 
 class Action:
     def __init__(self, entity: Actor):

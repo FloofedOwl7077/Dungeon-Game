@@ -3,10 +3,10 @@ import traceback
 
 import tcod
 
-import color
-from engine import Engine 
-import entity_factories
-from procgen import generate_dungeon
+import game.color as color
+from game.engine import Engine 
+import game.entity_factories as entity_factories
+from game.procgen import generate_dungeon
 
 def main() -> None:
     screen_width = 80
