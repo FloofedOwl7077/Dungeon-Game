@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import game.color as color
-from game.components.base_component import BaseComponent
-from game.input_handlers import GameOverEventHandler
-from game.render_order import RenderOrder
+import color as color
+from components.base_component import BaseComponent
+from input_handlers import GameOverEventHandler
+from render_order import RenderOrder
 
 if TYPE_CHECKING:
-    from game.entity import Actor
+    from entity import Actor
 
 class Fighter(BaseComponent):
     parent: Actor

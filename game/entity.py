@@ -1,16 +1,17 @@
 from __future__ import annotations
 
 import copy
+import math
 from typing import Optional, Tuple, Type, TypeVar, TYPE_CHECKING, Union
 
-from game.render_order import RenderOrder
+from render_order import RenderOrder
 
 if TYPE_CHECKING:
-    from game.components.ai import BaseAI
-    from game.components.consumable import Consumable
-    from game.components.fighter import Fighter
-    from game.components.inventory import Inventory
-    from game.game_map import GameMap
+    from components.ai import BaseAI
+    from components.consumable import Consumable
+    from components.fighter import Fighter
+    from components.inventory import Inventory
+    from game_map import GameMap
 
 T = TypeVar("T", bound="Entity")
 
@@ -68,6 +69,10 @@ class Entity:
                 self.parent = gamemap
                 gamemap.entities.add(self)
 
+    def distance(self, x: int, y: int):
+        # Return the distance between the current entity and the given (x, y) coordinate
+        return math.sqrt((x - self.x) ** 2 + (y- self.y) ** 2)
+    
     def move(self, dx: int, dy = int) -> None:
         # Move the entity by a given amount
         self.x += dx

@@ -4,19 +4,19 @@ from typing import Optional, TYPE_CHECKING
 
 import tcod.event
 
-import game.actions as actions
-from game.actions import (
+import actions as actions
+from actions import (
     Action, 
     BumpAction, 
     PickupAction,
     WaitAction,
 )
-import game.color as color
-import game.exceptions as exceptions
+import color as color
+import exceptions as exceptions
 
 if TYPE_CHECKING:
-    from game.engine import Engine
-    from game.entity import Item
+    from engine import Engine
+    from entity import Item
 
 #region (click to expand) Keys
 

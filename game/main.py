@@ -1,12 +1,13 @@
 import copy
 import traceback
+from pathlib import Path
 
 import tcod
 
-import game.color as color
-from game.engine import Engine 
-import game.entity_factories as entity_factories
-from game.procgen import generate_dungeon
+import color as color
+from engine import Engine 
+import entity_factories as entity_factories
+from procgen import generate_dungeon
 
 def main() -> None:
     screen_width = 80
@@ -23,7 +24,10 @@ def main() -> None:
     max_items_per_room = 2
 
     tileset = tcod.tileset.load_tilesheet(
-        "sprites.png", 32, 8, tcod.tileset.CHARMAP_TCOD
+        str(Path(__file__).with_name("sprites.png")),
+        32,
+        8,
+        tcod.tileset.CHARMAP_TCOD,
     )
 
     player = copy.deepcopy(entity_factories.player)
@@ -67,7 +71,7 @@ def main() -> None:
                 for event in tcod.event.wait():
                     context.convert_event(event)
                     engine.event_handler.handle_events(event)
-            except Exception: # Handle exceptions in game.
+            except Exception: # Handle exceptions in 
                 traceback.print_exc() # Print error to stderr.
                 # Then print the error to the message log.
                 engine.message_log.add_message(traceback.format_exc(), color.error)

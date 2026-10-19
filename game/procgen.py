@@ -5,12 +5,12 @@ from typing import Iterator, List, Tuple, TYPE_CHECKING
 
 import tcod
 
-import game.entity_factories as entity_factories
-from game.game_map import GameMap
-import game.tile_types as tile_types
+import entity_factories as entity_factories
+from game_map import GameMap
+import tile_types as tile_types
 
 if TYPE_CHECKING:
-    from game.engine import Engine
+    from engine import Engine
 
 class RectangularRoom:
     def __init__(self, x: int, y: int, width: int, height: int):
@@ -61,7 +61,12 @@ def place_entities(
         y = random.randint(room.y1 + 1, room.y2 - 1)
 
         if not any(entity.x == x and entity.y == y for entity in dungeon.entities):
-            entity_factories.health_potion.spawn(dungeon, x, y)
+            item_chance = random.random()
+
+            if item_chance < 0.7:
+                entity_factories.health_potion.spawn(dungeon, x, y)
+            else:
+                entity_factories.lightning_scroll.spawn(dungeon, x, y)
 
 def tunnel_between(start: Tuple[int, int], end: Tuple[int, int]) -> Iterator[Tuple[int, int]]:
     #Return an L-shaped tunnel between these two points.

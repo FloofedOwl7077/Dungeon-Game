@@ -5,10 +5,10 @@ from typing import List, Tuple, TYPE_CHECKING
 import numpy as np # type: ignore
 import tcod
 
-from game.actions import Action, MeleeAction, MovementAction, WaitAction
+from actions import Action, MeleeAction, MovementAction, WaitAction
 
 if TYPE_CHECKING:
-    from game.entity import Actor
+    from entity import Actor
 
 class BaseAI(Action):
     def perform(self) -> None:
