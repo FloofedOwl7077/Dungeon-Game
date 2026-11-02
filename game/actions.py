@@ -3,7 +3,7 @@ from __future__ import annotations
 import color as color
 import exceptions as exceptions
 
-from typing import Optional, Tuple, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -56,7 +56,7 @@ class PickupAction(Action):
 
 class ItemAction(Action):
     def __init__(
-            self, entity: Actor, item: Item, target_xy: Optional[Tuple[int, int]] = None
+            self, entity: Actor, item: Item, target_xy: Optional[tuple[int, int]] = None
     ):
         super().__init__(entity)
         self.item = item
@@ -91,7 +91,7 @@ class ActionWithDirection(Action):
         self.dy = dy
 
     @property
-    def dest_xy(self) -> Tuple[int, int]:
+    def dest_xy(self) -> tuple[int, int]:
         # Returns this actions destination
         return self.entity.x + self.dx, self.entity.y + self.dy
 

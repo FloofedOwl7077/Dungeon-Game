@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import random
-from typing import List, Optional, Tuple, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 
 import numpy as np # type: ignore
 import tcod
@@ -15,7 +15,7 @@ class BaseAI(Action):
     def perform(self) -> None:
         raise NotImplementedError()
 
-    def get_path_to(self, dest_x: int, dest_y: int) -> List[Tuple[int, int]]:
+    def get_path_to(self, dest_x: int, dest_y: int) -> list[tuple[int, int]]:
         """Compute and return a path to the target position.
         
         If there is no valid path then returns an empty list.
@@ -39,9 +39,9 @@ class BaseAI(Action):
             pathfinder.add_root((self.entity.x, self.entity.y)) # Start position.
 
             # Compute the path to the destination and remove the starting point.
-            path: List[List[int]] = pathfinder.path_to((dest_x, dest_y))[1:].tolist()
+            path: list[list[int]] = pathfinder.path_to((dest_x, dest_y))[1:].tolist()
 
-            # Convert from List[List[int]] to List[Tuple[int, int]].
+            # Convert the path coordinates into tuples.
             return [(index[0], index[1]) for index in path]
 
 class ConfusedEnemy(BaseAI):
@@ -89,7 +89,7 @@ class ConfusedEnemy(BaseAI):
 class HostileEnemy(BaseAI):
     def __init__(self, entity: Actor):
         super().__init__(entity)
-        self.path: List[Tuple[int, int]] = []
+        self.path: list[tuple[int, int]] = []
 
     def perform(self) -> None:
         target = self.engine.player

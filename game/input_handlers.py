@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Callable, Optional, Tuple, TYPE_CHECKING
+from collections.abc import Callable
+from typing import Optional, TYPE_CHECKING
 
 import tcod.event
 
@@ -69,12 +70,23 @@ CURSOR_Y_KEYS = {
 }
 #endregion
 
-class EventHandler(tcod.event.EventDispatch[Action]):
+class EventHandler:
     def __init__(self, engine: Engine):
         self.engine = engine
 
     def handle_events(self, event: tcod.event.Event) -> None:
         self.handle_action(self.dispatch(event))
+
+    def dispatch(self, event: tcod.event.Event) -> Optional[Action]:
+        if event.type is None:
+            return None
+
+        method_name = f"ev_{event.type.lower()}"
+        event_method = getattr(self, method_name, self.ev_)
+        return event_method(event)
+
+    def ev_(self, event: tcod.event.Event) -> Optional[Action]:
+        return None
 
     def handle_action(self, action: Optional[Action]) -> bool:
         """Handle actions returned from event methods.
@@ -101,6 +113,14 @@ class EventHandler(tcod.event.EventDispatch[Action]):
 
     def ev_quit(self, event: tcod.event.QUIT) -> Optional[Action]:
         raise SystemExit
+
+    def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[Action]:
+        return None
+
+    def ev_mousebuttondown(
+        self, event: tcod.event.MouseButtonDown
+    ) -> Optional[Action]:
+        return None
 
     def on_render(self, console: tcod.console) -> None:
         self.engine.render(console)
@@ -287,7 +307,7 @@ class SingleRangedAttackHandler(SelectIndexHandler):
     #Handles targeting a single enemy. Only the enemy selected will be affected.
 
     def __init__(
-            self, engine: Engine, callback: Callable[[Tuple[int, int]], Optional[Action]]
+            self, engine: Engine, callback: Callable[[tuple[int, int]], Optional[Action]]
     ):
         super().__init__(engine)
 
@@ -303,7 +323,7 @@ class AreaRangedAttackHandler(SelectIndexHandler):
         self,
         engine: Engine,
         radius: int,
-        callback: Callable[[Tuple[int, int]], Optional[Action]],
+        callback: Callable[[tuple[int, int]], Optional[Action]],
     ):
         super().__init__(engine)
 

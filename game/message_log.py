@@ -1,4 +1,4 @@
-from typing import Iterable, List, Reversible, Tuple
+from collections.abc import Iterable, Reversible
 import textwrap
 
 import tcod
@@ -6,7 +6,7 @@ import tcod
 import color as color
 
 class Message:
-    def __init__(self, text: str, fg: Tuple[int, int, int]):
+    def __init__(self, text: str, fg: tuple[int, int, int]):
         self.plain_text = text
         self.fg = fg
         self.count = 1
@@ -20,10 +20,10 @@ class Message:
 
 class MessageLog:
     def __init__(self) -> None:
-        self.messages: List[Message] = []
+        self.messages: list[Message] = []
 
     def add_message(
-            self, text: str, fg: Tuple[int, int, int] = color.white, *, stack: bool = True,
+            self, text: str, fg: tuple[int, int, int] = color.white, *, stack: bool = True,
     ) -> None:
         """
         Add a message to this log.

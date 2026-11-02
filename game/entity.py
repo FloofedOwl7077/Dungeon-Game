@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import copy
 import math
-from typing import Optional, Tuple, Type, TypeVar, TYPE_CHECKING, Union
+from typing import Optional, TypeVar, TYPE_CHECKING, Union
 
 from render_order import RenderOrder
 
@@ -28,7 +28,7 @@ class Entity:
             x: int = 0, 
             y: int = 0, 
             char: str = "?", 
-            color: Tuple[int, int, int] = (255, 255, 255),
+            color: tuple[int, int, int] = (255, 255, 255),
             name: str = "<Unnamed>",
             blocks_movement: bool = False,
             render_order: RenderOrder = RenderOrder.CORPSE,
@@ -85,9 +85,9 @@ class Actor(Entity):
             x: int = 0,
             y: int = 0,
             char: str = "?",
-            color: Tuple[int, int, int] = (255, 255, 255),
+            color: tuple[int, int, int] = (255, 255, 255),
             name: str = "<Unnamed>",
-            ai_cls: Type[BaseAI],
+            ai_cls: type[BaseAI],
             fighter: Fighter,
             inventory: Inventory,
     ):
@@ -121,7 +121,7 @@ class Item(Entity):
             x: int = 0,
             y: int = 0,
             char: str = "?",
-            color: Tuple[int, int, int] = (255, 255, 255),
+            color: tuple[int, int, int] = (255, 255, 255),
             name: str = "<Unnamed>",
             consumable: Consumable,
     ):

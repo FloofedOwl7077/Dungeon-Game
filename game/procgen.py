@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import random
-from typing import Iterator, List, Tuple, TYPE_CHECKING
+from collections.abc import Iterator
+from typing import TYPE_CHECKING
 
 import tcod
 
@@ -20,14 +21,14 @@ class RectangularRoom:
         self.y2 = y + height
 
     @property
-    def center(self) -> Tuple[int, int]:
+    def center(self) -> tuple[int, int]:
         center_x = int((self.x1 + self.x2) / 2)
         center_y = int((self.y1 + self.y2) / 2)
 
         return center_x, center_y
 
     @property
-    def inner(self) -> Tuple[slice, slice]:
+    def inner(self) -> tuple[slice, slice]:
         #Return the inner area of this oom as a 2D array index.
         return slice(self.x1 + 1, self.x2), slice(self.y1 + 1, self.y2)
 
@@ -72,7 +73,7 @@ def place_entities(
             else:
                 entity_factories.lightning_scroll.spawn(dungeon, x, y)
 
-def tunnel_between(start: Tuple[int, int], end: Tuple[int, int]) -> Iterator[Tuple[int, int]]:
+def tunnel_between(start: tuple[int, int], end: tuple[int, int]) -> Iterator[tuple[int, int]]:
     #Return an L-shaped tunnel between these two points.
     x1, y1 = start
     x2, y2 = end
@@ -103,7 +104,7 @@ def generate_dungeon(
     player = engine.player
     dungeon = GameMap(engine, map_width, map_height, entities=[player])
 
-    rooms: List[RectangularRoom] = []
+    rooms: list[RectangularRoom] = []
 
     for r in range(max_rooms):
         room_width = random.randint(room_min_size, room_max_size)
