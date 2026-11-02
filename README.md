@@ -38,9 +38,12 @@ View History: V <br>
 <li> Jump to Bottom: End </li>
 </ul>
 
+Confirm Selection: Numpad Enter/Return <br>
 Pick Up Item: G <br>
 Open Inventory: I <br>
 Open Drop Inventory: D <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Item in Either Inventory: A-Z (Marked next to the item)
+
+Look Around Map: Forward Slash
 
 Quit Game: Escape
