@@ -13,8 +13,8 @@ import tcod
 import color
 from engine import Engine
 import entity_factories
+from game_map import GameWorld
 import input_handlers
-from procgen import generate_dungeon
 
 background_image = tcod.image.load(
     str(Path(__file__).with_name("menu_background.png"))
@@ -36,7 +36,8 @@ def new_game() -> Engine:
 
     engine = Engine(player=player)
 
-    engine.game_map = generate_dungeon(
+    engine.game_world = GameWorld(
+        engine=engine,
         max_rooms=max_rooms,
         room_min_size=room_min_size,
         room_max_size=room_max_size,
@@ -44,8 +45,8 @@ def new_game() -> Engine:
         map_height=map_height,
         max_monsters_per_room=max_monsters_per_room,
         max_items_per_room=max_items_per_room,
-        engine=engine,
     )
+    engine.game_world.generate_floor()
     engine.update_fov()
 
     engine.message_log.add_message(
@@ -99,9 +100,9 @@ class MainMenu(input_handlers.BaseEventHandler):
     def ev_keydown(
             self, event: tcod.event.KeyDown
         ) -> Optional[input_handlers.BaseEventHandler]:
-        if event.sym in (tcod.event.KeySym.q, tcod.event.KeySym.ESCAPE):
+        if event.sym in (tcod.event.KeySym.Q, tcod.event.KeySym.ESCAPE):
             raise SystemExit()
-        elif event.sym == tcod.event.KeySym.c:
+        elif event.sym == tcod.event.KeySym.C:
             try: 
                 return input_handlers.MainGameEventHandler(load_game("savegame.sav"))
             except FileNotFoundError:
@@ -109,7 +110,7 @@ class MainMenu(input_handlers.BaseEventHandler):
             except Exception as exc:
                 traceback.print_exc()  # Print to stderr.
                 return input_handlers.PopupMessage(self, f"Failed to load save:\n{exc}")
-        elif event.sym == tcod.event.KeySym.n:
+        elif event.sym == tcod.event.KeySym.N:
             return input_handlers.MainGameEventHandler(new_game())
 
         return None

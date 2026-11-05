@@ -2,6 +2,8 @@
 
 This is a work in progress dungeon crawler, using the 5e ruleset. Currently, none of the rules have been implemented, but the foundations are being constructed. This is entirely constructed in Python.
 
+The main structure of the game was written by TStand90 on Github. You can find it [here](https://github.com/TStand90/roguelike_tutorial_revised), and the tutorial [here](https://www.rogueliketutorials.com/tutorials/tcod/v2/).
+
 ## Running the Game
 There is one way I am aware of to run the game at this point. I intend to create a file that one can double click in their file explorer to run, but I have not reached that point. 
 

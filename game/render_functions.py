@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Tuple, TYPE_CHECKING
 
 import color as color
 
@@ -19,7 +19,7 @@ def get_names_at_location(x: int, y: int, game_map: GameMap) -> str:
     return names.capitalize()
 
 def render_bar(
-        console:console, current_value: int, maximum_value: int, total_width: int
+        console:console.Console, current_value: int, maximum_value: int, total_width: int
 ) -> None:
     bar_width = int(float(current_value) / maximum_value * total_width)
 
@@ -31,11 +31,19 @@ def render_bar(
         )
 
         console.print(
-            x=1, y=45, string=f"HP: {current_value}/{maximum_value}", fg=color.bar_text
+            x=1, y=45, text=f"HP: {current_value}/{maximum_value}", fg=color.bar_text
         )
 
+def render_dungeon_level(
+        console: console.Console, dungeon_level: int, location:Tuple[int, int]
+) -> None:
+    # Render the level the player is currently on, at the given location.
+    x, y = location
+
+    console.print(x=x, y=y, text=f"Dungeon level: {dungeon_level}")
+
 def render_names_at_mouse_location(
-        console: console, x: int, y: int, engine: Engine
+        console: console.Console, x: int, y: int, engine: Engine
 ) -> None:
     mouse_x, mouse_y = engine.mouse_location
 
@@ -43,4 +51,4 @@ def render_names_at_mouse_location(
         x=mouse_x, y=mouse_y, game_map=engine.game_map
     )
 
-    console.print(x=x, y=y, string=names_at_mouse_location)
+    console.print(x=x, y=y, text=names_at_mouse_location)
