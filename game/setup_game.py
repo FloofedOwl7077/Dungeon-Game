@@ -8,7 +8,10 @@ import traceback
 from pathlib import Path
 from typing import Optional
 
+import numpy as np
 import tcod
+from tcod import libtcodpy
+from PIL import Image
 
 import color
 from engine import Engine
@@ -16,9 +19,8 @@ import entity_factories
 from game_map import GameWorld
 import input_handlers
 
-background_image = tcod.image.load(
-    str(Path(__file__).with_name("menu_background.png"))
-)[:, :, :3]
+with Image.open(Path(__file__).with_name("menu_background.png")) as image:
+    background_image = np.array(image.convert("RGB"), dtype=np.uint8)
 
 def new_game() -> Engine:
     # Return a brand new game session as an Engine instance.
@@ -64,7 +66,7 @@ def load_game(filename: str) -> Engine:
 class MainMenu(input_handlers.BaseEventHandler):
     # Handle the main menu rendering and input.
     
-    def on_render(self, console: tcod.Console) -> None:
+    def on_render(self, console: tcod.console.Console) -> None:
         # Render the main menu on a background image.
         console.draw_semigraphics(background_image, 0, 0)
 
@@ -73,14 +75,14 @@ class MainMenu(input_handlers.BaseEventHandler):
             console.height // 2 - 4,
             "TOMBS OF THE ANCIENT KINGS",
             fg=color.menu_title,
-            alignment=tcod.CENTER,
+            alignment=libtcodpy.CENTER,
         )
         console.print(
             console.width // 2,
             console.height - 2,
             "By: FloofedOwl7077",
             fg=color.menu_title,
-            alignment=tcod.CENTER,
+            alignment=libtcodpy.CENTER,
         )
 
         menu_width = 24
@@ -93,8 +95,8 @@ class MainMenu(input_handlers.BaseEventHandler):
                 text.ljust(menu_width),
                 fg=color.menu_text,
                 bg=color.black,
-                alignment=tcod.CENTER,
-                bg_blend=tcod.BKGND_ALPHA(64),
+                alignment=libtcodpy.CENTER,
+                bg_blend=libtcodpy.BKGND_ALPHA(64),
             )
 
     def ev_keydown(

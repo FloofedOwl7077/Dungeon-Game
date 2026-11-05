@@ -56,7 +56,7 @@ class MessageLog:
     @classmethod
     def render_messages(
         cls,
-        console: tcod.console,
+        console: tcod.console.Console,
         x: int,
         y: int,
         width: int,
@@ -71,7 +71,7 @@ class MessageLog:
 
         for message in reversed(messages):
             for line in reversed(list(cls.wrap(message.full_text, width))):
-                console.print(x=x, y=y + y_offset, string=line, fg=message.fg)
+                console.print(x=x, y=y + y_offset, text=line, fg=message.fg)
                 y_offset -= 1
                 if y_offset < 0:
                     return # No more space to print messages.

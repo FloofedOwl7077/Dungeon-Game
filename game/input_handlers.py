@@ -5,6 +5,7 @@ from collections.abc import Callable
 from typing import Optional, TYPE_CHECKING, Union
 
 import tcod.event
+from tcod import libtcodpy
 
 import actions as actions
 from actions import (
@@ -78,7 +79,7 @@ If a handler is returned then it will become the active handler for future event
 If an action is returned then it will be attempted and if it's valid then
 MainGameEventHandler will become the active handler for future events
 """
-class BaseEventHandler(tcod.event.EventDispatch[ActionOrHandler]):
+class BaseEventHandler:
     def handle_events(self, event: tcod.event.Event) -> BaseEventHandler:
         # Handle an event and return the next active event handler.
         state = self.dispatch(event)
@@ -86,6 +87,23 @@ class BaseEventHandler(tcod.event.EventDispatch[ActionOrHandler]):
             return state
         assert not isinstance(state, Action), f"{self!r} can not handle actions."
         return self
+
+    def dispatch(self, event: tcod.event.Event) -> Optional[ActionOrHandler]:
+        if isinstance(event, tcod.event.Quit):
+            method_name = "ev_quit"
+        elif isinstance(event, tcod.event.KeyDown):
+            method_name = "ev_keydown"
+        elif isinstance(event, tcod.event.MouseMotion):
+            method_name = "ev_mousemotion"
+        elif isinstance(event, tcod.event.MouseButtonDown):
+            method_name = "ev_mousebuttondown"
+        else:
+            method_name = "ev_"
+
+        event_method = getattr(self, method_name, None)
+        if event_method is None:
+            return None
+        return event_method(event)
 
     def on_render(self, console: tcod.console.Console) -> None:
         raise NotImplementedError()
@@ -112,7 +130,7 @@ class PopupMessage(BaseEventHandler):
             self.text,
             fg=color.white,
             bg=color.black,
-            alignment=tcod.CENTER,
+            alignment=libtcodpy.CENTER,
         )
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[BaseEventHandler]:
@@ -137,14 +155,6 @@ class EventHandler(BaseEventHandler):
                 return LevelUpEventHandler(self.engine)
             return MainGameEventHandler(self.engine) # Return to the main handler.
         return self
-
-    def dispatch(self, event: tcod.event.Event) -> Optional[Action]:
-        if event.type is None:
-            return None
-
-        method_name = f"ev_{event.type.lower()}"
-        event_method = getattr(self, method_name, self.ev_)
-        return event_method(event)
 
     def ev_(self, event: tcod.event.Event) -> Optional[Action]:
         return None
@@ -232,10 +242,16 @@ class CharacterScreenEventHandler(AskUserEventHandler):
             y=y,
             width=width,
             height=7,
-            title=self.TITLE,
             clear=True,
             fg=(255, 255, 255),
             bg=(0, 0, 0),
+        )
+        console.print(
+            x=x + 2,
+            y=y,
+            text=self.TITLE,
+            fg=(0, 0, 0),
+            bg=(255, 255, 255),
         )
 
         console.print(
@@ -273,10 +289,16 @@ class LevelUpEventHandler(AskUserEventHandler):
             y=0,
             width=35,
             height=8,
-            title=self.TITLE,
             clear=True,
-            fg = (255, 255, 255),
-            bg = (0, 0, 0),
+            fg=(255, 255, 255),
+            bg=(0, 0, 0),
+        )
+        console.print(
+            x=x + 2,
+            y=0,
+            text=self.TITLE,
+            fg=(0, 0, 0),
+            bg=(255, 255, 255),
         )
 
         console.print(x=x + 1, y=1, text="Congratulations! You level up!")
@@ -358,10 +380,16 @@ class InventoryEventHandler(AskUserEventHandler):
             y=y,
             width=width,
             height=height,
-            title=self.TITLE,
             clear=True,
             fg=(255, 255, 255),
             bg=(0, 0, 0),
+        )
+        console.print(
+            x=x + 2,
+            y=y,
+            text=self.TITLE,
+            fg=(0, 0, 0),
+            bg=(255, 255, 255),
         )
 
         if number_of_items_in_inventory > 0:
@@ -584,8 +612,8 @@ class HistoryViewer(EventHandler):
 
         # Draw a frame with a custom banner title.
         log_console.draw_frame(0, 0, log_console.width, log_console.height)
-        log_console.print_box(
-            0, 0, log_console.width, 1, "|Message History|", alignment=tcod.CENTER
+        log_console.print(
+            0, 0, log_console.width, 1, "|Message History|", alignment=libtcodpy.CENTER
         )
 
         # Render the message log using the cursor parameter.
