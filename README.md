@@ -44,7 +44,8 @@ Confirm Selection: Numpad Enter/Return <br>
 Pick Up Item: G <br>
 Open Inventory: I <br>
 Open Drop Inventory: D <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Item in Either Inventory: A-Z (Marked next to the item)
+Open Character MenuL C <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Tab in Menus: A-Z (Marked next to the selection)
 
 Look Around Map: Forward Slash
 
