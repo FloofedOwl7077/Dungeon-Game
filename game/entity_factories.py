@@ -58,4 +58,3 @@ lightning_scroll = Item(
     name="Lightning Scroll",
     consumable=consumable.LightningDamageConsumeable(damage=20, maximum_range=5)
 )
-
