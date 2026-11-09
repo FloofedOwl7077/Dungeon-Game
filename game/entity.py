@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from components.consumable import Consumable
     from components.equipment import Equipment
     from components.equippable import Equippable
-    from components.fighter import Fighter
+    from components.combatant import Combatant
     from components.inventory import Inventory
     from components.level import Level
     from game_map import GameMap
@@ -92,7 +92,7 @@ class Actor(Entity):
             name: str = "<Unnamed>",
             ai_cls: type[BaseAI],
             equipment: Equipment,
-            fighter: Fighter,
+            combatant: Combatant,
             inventory: Inventory,
             level: Level
     ):
@@ -111,8 +111,8 @@ class Actor(Entity):
         self.equipment: Equipment = equipment
         self.equipment.parent = self
 
-        self.fighter = fighter
-        self.fighter.parent = self
+        self.combatant = combatant
+        self.combatant.parent = self
 
         self.inventory = inventory
         self.inventory.parent = self

@@ -77,7 +77,7 @@ class HealingConsumable(Consumable):
 
     def activate(self, action: actions.ItemAction) -> None:
         consumer = action.entity
-        amount_recovered = consumer.fighter.heal(self.amount)
+        amount_recovered = consumer.combatant.heal(self.amount)
 
         if amount_recovered > 0:
             self.engine.message_log.add_message(
@@ -115,7 +115,7 @@ class FireballDamageConsumeable(Consumable):
                 self.engine.message_log.add_message(
                     f"The {actor.name} is engulfed in a fiery explosion, taking {self.damage} damage!"
                 )
-                actor.fighter.take_damage(self.damage)
+                actor.combatant.take_damage(self.damage)
                 targets_hit = True
 
         if not targets_hit:
@@ -144,7 +144,7 @@ class LightningDamageConsumeable(Consumable):
             self.engine.message_log.add_message(
                 f"A lightning bolt strikes the {target.name} with a loud thunder, for {self.damage} damage!"
             )
-            target.fighter.take_damage(self.damage)
+            target.combatant.take_damage(self.damage)
             self.consume()
         else:
             raise Impossible("No enemy is close enough to strike.")
